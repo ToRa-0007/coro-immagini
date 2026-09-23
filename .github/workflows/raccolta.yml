@@ -1,0 +1,426 @@
+name: raccolta
+
+on:
+  schedule:
+    - cron: '30 4,16 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/raccolta.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: raccolta
+  cancel-in-progress: false
+
+jobs:
+  raccolta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet feedparser requests pillow
+      - name: Prepara script e feed
+        run: |
+          cat > feeds.json <<'JSONEOF'
+          [
+          {
+          "o": "ansa",
+          "url": "https://www.ansa.it/sito/ansait_rss.xml",
+          "lang": "it"
+          },
+          {
+          "o": "ansa",
+          "url": "https://www.ansa.it/canale_scienza_tecnica/notizie/scienzaetecnica_rss.xml",
+          "lang": "it"
+          },
+          {
+          "o": "ansa",
+          "url": "https://www.ansa.it/canale_saluteebenessere/notizie/saluteebenessere_rss.xml",
+          "lang": "it"
+          },
+          {
+          "o": "ilpost",
+          "url": "https://www.ilpost.it/feed/",
+          "lang": "it"
+          },
+          {
+          "o": "skytg24",
+          "url": "https://tg24.sky.it/rss/tg24.xml",
+          "lang": "it",
+          "rome_local": true
+          },
+          {
+          "o": "open",
+          "url": "https://www.open.online/feed/",
+          "lang": "it"
+          },
+          {
+          "o": "internazionale",
+          "url": "https://www.internazionale.it/sitemaps/rss.xml",
+          "lang": "it"
+          },
+          {
+          "o": "tgcom24",
+          "url": "https://www.tgcom24.mediaset.it/rss/homepage.xml",
+          "lang": "it"
+          },
+          {
+          "o": "fanpage",
+          "url": "https://www.fanpage.it/feed/",
+          "lang": "it"
+          },
+          {
+          "o": "adnkronos",
+          "url": "https://www.adnkronos.com/RSS_PrimaPagina.xml",
+          "lang": "it"
+          },
+          {
+          "o": "repubblica",
+          "url": "https://www.repubblica.it/rss/homepage/rss2.0.xml",
+          "lang": "it"
+          },
+          {
+          "o": "corriere",
+          "url": "https://xml2.corriereobjects.it/rss/homepage.xml",
+          "lang": "it"
+          },
+          {
+          "o": "lastampa",
+          "url": "https://www.lastampa.it/rss/copertina.xml",
+          "lang": "it"
+          },
+          {
+          "o": "sole24ore",
+          "url": "https://www.ilsole24ore.com/rss/italia.xml",
+          "lang": "it"
+          },
+          {
+          "o": "sole24ore",
+          "url": "https://www.ilsole24ore.com/rss/mondo.xml",
+          "lang": "it"
+          },
+          {
+          "o": "ilfatto",
+          "url": "https://www.ilfattoquotidiano.it/feed/",
+          "lang": "it"
+          },
+          {
+          "o": "rainews",
+          "url": "https://www.rainews.it/rss/tutti",
+          "lang": "it"
+          },
+          {
+          "o": "ilmessaggero",
+          "url": "https://www.ilmessaggero.it/rss/home.xml",
+          "lang": "it"
+          },
+          {
+          "o": "ilgiornale",
+          "url": "https://www.ilgiornale.it/feed.xml",
+          "lang": "it"
+          },
+          {
+          "o": "huffpost",
+          "url": "https://www.huffingtonpost.it/feeds/index.xml",
+          "lang": "it"
+          },
+          {
+          "o": "today",
+          "url": "https://www.today.it/rss",
+          "lang": "it"
+          },
+          {
+          "o": "domani",
+          "url": "https://www.editorialedomani.it/rss",
+          "lang": "it"
+          },
+          {
+          "o": "gazzetta",
+          "url": "https://www.gazzetta.it/rss/home.xml",
+          "lang": "it"
+          },
+          {
+          "o": "wired",
+          "url": "https://www.wired.it/feed/rss",
+          "lang": "it"
+          },
+          {
+          "o": "lescienze",
+          "url": "https://www.lescienze.it/rss/all/rss2.0.xml",
+          "lang": "it"
+          },
+          {
+          "o": "aljazeera",
+          "url": "https://www.aljazeera.com/xml/rss/all.xml",
+          "lang": "en"
+          },
+          {
+          "o": "bbc",
+          "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
+          "lang": "en"
+          },
+          {
+          "o": "guardian",
+          "url": "https://www.theguardian.com/world/rss",
+          "lang": "en"
+          },
+          {
+          "o": "guardian",
+          "url": "https://www.theguardian.com/science/rss",
+          "lang": "en"
+          },
+          {
+          "o": "nyt",
+          "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+          "lang": "en"
+          },
+          {
+          "o": "npr",
+          "url": "https://feeds.npr.org/1001/rss.xml",
+          "lang": "en"
+          },
+          {
+          "o": "dw",
+          "url": "https://rss.dw.com/rdf/rss-en-all",
+          "lang": "en"
+          },
+          {
+          "o": "france24",
+          "url": "https://www.france24.com/en/rss",
+          "lang": "en"
+          },
+          {
+          "o": "euronews",
+          "url": "https://www.euronews.com/rss?level=theme&name=news",
+          "lang": "en"
+          },
+          {
+          "o": "sciencedaily",
+          "url": "https://www.sciencedaily.com/rss/top/science.xml",
+          "lang": "en"
+          },
+          {
+          "o": "sciencedaily",
+          "url": "https://www.sciencedaily.com/rss/health_medicine.xml",
+          "lang": "en"
+          },
+          {
+          "o": "nature",
+          "url": "https://www.nature.com/nature.rss",
+          "lang": "en"
+          },
+          {
+          "o": "newscientist",
+          "url": "https://www.newscientist.com/feed/home/",
+          "lang": "en"
+          },
+          {
+          "o": "arstechnica",
+          "url": "https://feeds.arstechnica.com/arstechnica/index",
+          "lang": "en"
+          },
+          {
+          "o": "medicalxpress",
+          "url": "https://medicalxpress.com/rss-feed/",
+          "lang": "en"
+          }
+          ]
+          JSONEOF
+          cat > collect.py <<'PYEOF'
+          """Raccolta delle notizie per Coro (gira su GitHub Actions).
+
+          Legge feeds.json, scarica ogni feed RSS/Atom, tiene le voci delle ultime HOURS ore,
+          trova un'immagine per ogni voce (dal feed o dall'og:image dell'articolo), la scarica
+          e ridimensiona, e scrive in OUT:
+            items.json   elenco voci {k,o,t,u,d,a,s,img,ik,iw,ih}
+            status.json  esito per testata e ora di generazione
+            img/<k>.jpg  immagini ridimensionate
+          """
+          import hashlib
+          import html
+          import io
+          import json
+          import os
+          import re
+          import sys
+          import time
+          from concurrent.futures import ThreadPoolExecutor
+          from datetime import datetime, timedelta, timezone
+          from urllib.parse import urljoin, urlparse
+          from zoneinfo import ZoneInfo
+
+          import feedparser
+          import requests
+          from PIL import Image, ImageOps
+
+          HOURS = 36
+          PER_FEED = 20
+          MAX_W = 960
+          UA = ('Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 '
+                '(KHTML, like Gecko) Chrome/128.0 Mobile Safari/537.36')
+          NOW = datetime.now(timezone.utc)
+          SESSION = requests.Session()
+          SESSION.headers.update({'User-Agent': UA, 'Accept-Language': 'it-IT,it;q=0.9,en;q=0.8'})
+
+          TAG = re.compile(r'<[^>]+>')
+          IMG_IN_HTML = re.compile(r'<img[^>]+src=["\']([^"\']+)["\']', re.I)
+          OG = re.compile(r'<meta[^>]+(?:property|name)=["\'](?:og:image|twitter:image)(?::src)?["\'][^>]*content=["\']([^"\']+)["\']', re.I)
+          OG2 = re.compile(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]*(?:property|name)=["\'](?:og:image|twitter:image)["\']', re.I)
+
+
+          def clean(s, n=None):
+              s = html.unescape(TAG.sub(' ', s or ''))
+              s = re.sub(r'\s+', ' ', s).strip()
+              return (s[:n].rsplit(' ', 1)[0] + '…') if n and len(s) > n else s
+
+
+          def when(e, rome_local):
+              st = e.get('published_parsed') or e.get('updated_parsed')
+              if not st:
+                  return None
+              dt = datetime(*st[:6], tzinfo=timezone.utc)
+              if rome_local:  # il feed dichiara GMT ma pubblica l'ora italiana
+                  dt = dt.replace(tzinfo=None).replace(tzinfo=ZoneInfo('Europe/Rome')).astimezone(timezone.utc)
+              return min(dt, NOW)
+
+
+          def image_of(e):
+              for key in ('media_content', 'media_thumbnail'):
+                  for m in e.get(key) or []:
+                      u = m.get('url')
+                      if u and not u.lower().endswith(('.mp4', '.mp3', '.m3u8')):
+                          return u
+              for enc in e.get('enclosures') or []:
+                  if (enc.get('type') or '').startswith('image') and enc.get('href'):
+                      return enc['href']
+              for l in e.get('links') or []:
+                  if (l.get('type') or '').startswith('image') and l.get('href'):
+                      return l['href']
+              blobs = [e.get('summary') or ''] + [c.get('value', '') for c in e.get('content') or []]
+              for b in blobs:
+                  m = IMG_IN_HTML.search(b)
+                  if m:
+                      return m.group(1)
+              return None
+
+
+          def read_feed(f):
+              out, err = [], None
+              try:
+                  r = SESSION.get(f['url'], timeout=25)
+                  r.raise_for_status()
+                  p = feedparser.parse(r.content)
+                  for e in p.entries:
+                      link = (e.get('link') or '').strip()
+                      title = clean(e.get('title'))
+                      if not link or not title:
+                          continue
+                      d = when(e, f.get('rome_local'))
+                      if not d or NOW - d > timedelta(hours=HOURS):
+                          continue
+                      img = image_of(e)
+                      if img:
+                          img = urljoin(link, html.unescape(img))
+                      out.append({
+                          'k': hashlib.sha1(link.encode()).hexdigest()[:12],
+                          'o': f['o'], 't': title, 'u': link,
+                          'd': d.strftime('%Y-%m-%dT%H:%M:%SZ'),
+                          'a': clean(e.get('author'))[:80] or None,
+                          's': clean(e.get('summary'), 260),
+                          'img': img, 'l': f.get('lang', 'it'),
+                      })
+                  out.sort(key=lambda x: x['d'], reverse=True)
+                  out = out[:PER_FEED]
+              except Exception as ex:  # noqa: BLE001
+                  err = str(ex)[:200]
+              return f, out, err
+
+
+          def og_image(item):
+              try:
+                  r = SESSION.get(item['u'], timeout=12, stream=True)
+                  chunk = r.raw.read(400_000, decode_content=True).decode('utf-8', 'ignore')
+                  m = OG.search(chunk) or OG2.search(chunk)
+                  if m:
+                      item['img'] = urljoin(item['u'], html.unescape(m.group(1)))
+              except Exception:  # noqa: BLE001
+                  pass
+              return item
+
+
+          def fetch_image(item, outdir):
+              try:
+                  ref = f"{urlparse(item['u']).scheme}://{urlparse(item['u']).netloc}/"
+                  r = SESSION.get(item['img'], timeout=20, headers={'Referer': ref, 'Accept': 'image/avif,image/webp,image/*,*/*;q=0.8'}, stream=True)
+                  r.raise_for_status()
+                  data = r.raw.read(15 * 1024 * 1024, decode_content=True)
+                  im = ImageOps.exif_transpose(Image.open(io.BytesIO(data)))
+                  if im.mode not in ('RGB', 'L'):
+                      im = im.convert('RGBA')
+                      bg = Image.new('RGB', im.size, (238, 240, 238))
+                      bg.paste(im, mask=im.split()[-1])
+                      im = bg
+                  im = im.convert('RGB')
+                  if im.width < 240 or im.height < 140:
+                      return item
+                  if im.width > MAX_W:
+                      im = im.resize((MAX_W, round(im.height * MAX_W / im.width)), Image.LANCZOS)
+                  im.save(os.path.join(outdir, item['k'] + '.jpg'), 'JPEG', quality=76, optimize=True, progressive=True)
+                  item['ik'], item['iw'], item['ih'] = True, im.width, im.height
+              except Exception:  # noqa: BLE001
+                  pass
+              return item
+
+
+          def main():
+              feeds_path, out = sys.argv[1], sys.argv[2]
+              os.makedirs(os.path.join(out, 'img'), exist_ok=True)
+              feeds = json.load(open(feeds_path, encoding='utf-8'))
+              items, status = [], {}
+              with ThreadPoolExecutor(max_workers=12) as ex:
+                  for f, got, err in ex.map(read_feed, feeds):
+                      st = status.setdefault(f['o'], {'items': 0, 'errors': []})
+                      st['items'] += len(got)
+                      if err:
+                          st['errors'].append(f"{f['url']}: {err}")
+                      items.extend(got)
+              seen, uniq = set(), []
+              for it in sorted(items, key=lambda x: x['d'], reverse=True):
+                  if it['k'] in seen:
+                      continue
+                  seen.add(it['k'])
+                  uniq.append(it)
+              need_og = [it for it in uniq if not it['img']][:180]
+              with ThreadPoolExecutor(max_workers=12) as ex:
+                  list(ex.map(og_image, need_og))
+              with_img = [it for it in uniq if it['img']]
+              with ThreadPoolExecutor(max_workers=12) as ex:
+                  list(ex.map(lambda it: fetch_image(it, os.path.join(out, 'img')), with_img))
+              for it in uniq:
+                  it.setdefault('ik', False)
+              json.dump(uniq, open(os.path.join(out, 'items.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+              json.dump({'generatedAt': NOW.strftime('%Y-%m-%dT%H:%M:%SZ'), 'items': len(uniq),
+                         'withImage': sum(1 for i in uniq if i['ik']), 'outlets': status},
+                        open(os.path.join(out, 'status.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+              print(f"{len(uniq)} voci, {sum(1 for i in uniq if i['ik'])} con immagine")
+
+
+          if __name__ == '__main__':
+              main()
+
+          PYEOF
+      - run: python collect.py feeds.json out
+      - name: Pubblica sul ramo "dati" (sostituisce il precedente)
+        run: |
+          cd out
+          git init -q -b dati
+          git config user.name "coro-bot"
+          git config user.email "coro-bot@users.noreply.github.com"
+          git add -A
+          git commit -qm "raccolta $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" dati
