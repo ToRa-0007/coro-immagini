@@ -1,0 +1,952 @@
+{
+ "ansa": {
+  "sha": "707d6e1462cb",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#34B233",
+  "src": "https://www.ansa.it/sito/imgnew/favicon.svg",
+  "orig": 192,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "agi": {
+  "sha": "64bc90ad1def",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#000000",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.agi.it%2F&size=256",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "adnkronos": {
+  "sha": "6856a51f22ec",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://www.adnkronos.com/android-icon-192x192.png",
+  "orig": 192,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "ilpost": {
+  "sha": "60afcd6ea18c",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#089EC2",
+  "src": "https://static-prod.cdnilpost.com/wp-content/uploads/favicon/apple-touch-icon-180x180.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "corriere": {
+  "sha": "6c3b2086b710",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://components2.corriereobjects.it/rcs_cor_corriere-layout/v2/assets/img/ext/favicon/touch-icon-ipad-retina.png?v=1",
+  "orig": 152,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "repubblica": {
+  "sha": "39dc9d16641f",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://www.repstatic.it/cless/main/nazionale/2016-v1/img/common/favicon/apple-touch-icon.png",
+  "orig": 192,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "lastampa": {
+  "sha": "f870bc166656",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#073860",
+  "src": "https://www.lastampastatic.it/cless/lastampa/2021-v1/img/apple-touch-icon.png",
+  "orig": 192,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "sole24ore": {
+  "sha": "ce2368591982",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.ilsole24ore.com/apple-touch-icon-precomposed.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "ilfatto": {
+  "sha": "68262e14d0cf",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#F4F4F4",
+  "src": "https://st.ilfattoquotidiano.it/wp-content/themes/ifq-2025/assets/icons/touch_196.png",
+  "orig": 196,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "ilmessaggero": {
+  "sha": "b63d09438822",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://statics.cedscdn.it/utils/img/favicon/ilmessaggero/apple-icon-180x180.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "ilgiornale": {
+  "sha": "858403bdca45",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://www.ilgiornale.it/pf/resources/images/ilgiornale/apple-touch-icon.png?d=20",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "avvenire": {
+  "sha": "ce6c9d57d7bc",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.avvenire.it/img/favicon/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "domani": {
+  "sha": "277ddf13f9a3",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.editorialedomani.it/apple-touch-icon.png",
+  "orig": 120,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "ilmanifesto": {
+  "sha": "d6df654edfa3",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://ilmanifesto.it/icons/icon-512x512.png",
+  "orig": 512,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "rainews": {
+  "sha": "5eef774e15f1",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#0000BB",
+  "src": "https://www.rainews.it/dl/rainews/images/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "skytg24": {
+  "sha": "e759b49414dd",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#DE7F7F",
+  "src": "https://tg24.sky.it/assets/images/skytg24/configurations/logos/tg24-512x512.png",
+  "orig": 512,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "tgcom24": {
+  "sha": "efd5c8d4f9bd",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#6D0725",
+  "src": "https://www.tgcom24.mediaset.it/tgcom24-icon/ms-icon-310x310.png",
+  "orig": 310,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "open": {
+  "sha": "eba9d4c3353a",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.open.online%2F&size=256",
+  "orig": 48,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "fanpage": {
+  "sha": "5d1643cc337b",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.fanpage.it%2F&size=256",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "today": {
+  "sha": "508bc629d09f",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#1A3166",
+  "src": "https://citynews.stgy.ovh/~shared/images/v2015/brands/citynews-today.png",
+  "orig": 400,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "huffpost": {
+  "sha": "7af28de6f588",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#2E7062",
+  "src": "https://www.repstatic.it/cless/channel/huffpost/2022-v1/img/common/icon/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "linkiesta": {
+  "sha": "cc369d7d759c",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#124D82",
+  "src": "https://www.linkiesta.it/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "internazionale": {
+  "sha": "4dc1425869d2",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#012A4C",
+  "src": "https://static.internazionale.it/assets/img/apple-icon-144x144-precomposed.png",
+  "orig": 144,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "valigiablu": {
+  "sha": "5588360afeb2",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.valigiablu.it%2F&size=256",
+  "orig": 192,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "lavoce": {
+  "sha": "898924922d85",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#BBF0D6",
+  "src": "https://r3-it.storage.cloud.it/lavoce-info-uploads/uploads/2021/05/logo_solo-simbolo.png",
+  "orig": 251,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "gazzetta": {
+  "sha": "7ab89a9b7edf",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#F5B2C3",
+  "src": "https://images2.gazzettaobjects.it/favicon.ico?v=20250606160009",
+  "orig": 128,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "wired": {
+  "sha": "57985e841cc4",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#000000",
+  "src": "https://www.wired.it/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "puntoinformatico": {
+  "sha": "2b196c08e349",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#F2F3FA",
+  "src": "https://www.punto-informatico.it/app/themes/punto-informatico/assets/favicon/apple-touch-icon.png?v=2",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "lescienze": {
+  "sha": "95a4188df0a4",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.repstatic.it/cless/channel/lescienze/2025-v1/img/common/icon/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "mediainaf": {
+  "sha": "f36e68f3b0a1",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.media.inaf.it/favicons/android-icon-192x192.png",
+  "orig": 192,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "quotidianosanita": {
+  "sha": "068b116f9ae7",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://www.quotidianosanita.it/wp-content/themes/cms-spoke-child-theme-default/apple-touch-icon.png?v=20260921",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "nature": {
+  "sha": "1e9e48dbf4cf",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.nature.com/static/images/favicons/nature/android-chrome-512x512.png",
+  "orig": 512,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "science": {
+  "sha": "5bedfd20cf5f",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#CA2015",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.science.org%2F&size=256",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "newscientist": {
+  "sha": "39d3e5c7554e",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FBFBFB",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.newscientist.com%2F&size=256",
+  "orig": 256,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "sciencedaily": {
+  "sha": "44c855e38682",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.sciencedaily.com%2F&size=256",
+  "orig": 64,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "physorg": {
+  "sha": "cf900c6917b6",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fphys.org%2F&size=256",
+  "orig": 256,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "medicalxpress": {
+  "sha": "ffff6815e724",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fmedicalxpress.com%2F&size=256",
+  "orig": 256,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "statnews": {
+  "sha": "0d4347d3f4d1",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#1BAEB7",
+  "src": "https://www.statnews.com/wp-content/plugins/stat-app-banner/images/stat-logo-teal-512.png",
+  "orig": 512,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "bjsm": {
+  "sha": "0ad50d9af40a",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://blogs.bmj.com/bjsm/files/2018/01/cropped-BMJ-Logo-180x180.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "theconversation": {
+  "sha": "c6647f370b46",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://images.theconversation.com/files/581997/original/9275d5c0-7dd5-4ddf-b50b-98d537e016f4.png",
+  "orig": 1920,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "nasa": {
+  "sha": "17c1b2d5b8bf",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.nasa.gov/wp-content/plugins/nasa-hds-core-setup/assets/favicons/android-chrome-512x512.png",
+  "orig": 512,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "esa": {
+  "sha": "94750d9f6f26",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.esa.int/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "carbonbrief": {
+  "sha": "9d17c2eae43e",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.carbonbrief.org/wp-content/uploads/2026/03/cropped-Carbon-Brief-Favicon-512px-180x180.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "arstechnica": {
+  "sha": "aa3822290347",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://cdn.arstechnica.net/wp-content/uploads/2016/10/cropped-ars-logo-512_480-300x300.png",
+  "orig": 300,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "theverge": {
+  "sha": "7d5374918748",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://www.theverge.com/static-assets/icons/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "techcrunch": {
+  "sha": "59aab701dd53",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#15BE4B",
+  "src": "https://techcrunch.com/wp-content/uploads/2015/02/cropped-cropped-favicon-gradient.png?w=180",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "motor1": {
+  "sha": "e369300f223e",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#000000",
+  "src": "https://cdn.motor1.com/images/static/motor1/favicon-180.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "insideevs": {
+  "sha": "a0712eccebf4",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://cdn.motor1.com/images/static/insideevs/favicon-180.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "quattroruote": {
+  "sha": "20beb24bb312",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFEFF",
+  "src": "https://statics.quattroruote.it/etc/designs/quattroruote/img/icon/apple-touch-icon-144x144-precomposed.png",
+  "orig": 144,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "alvolante": {
+  "sha": "f7e39d446c02",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.alvolante.it/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "motorbox": {
+  "sha": "bb2b9b699331",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.motorbox.com/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "hdmotori": {
+  "sha": "513187f75ca8",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.hdmotori.it/app/uploads/2025/04/favicon_hdmotori.png",
+  "orig": 144,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "formulapassion": {
+  "sha": "05a3d8f791f0",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#E30000",
+  "src": "https://www.formulapassion.it/wp-content/themes/fp-2023/resources/images/favicon/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "motorsport": {
+  "sha": "8a2a06ebb2cd",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#0E131A",
+  "src": "https://it.motorsport.com/design/images/webapp/i196.png",
+  "orig": 196,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "gpone": {
+  "sha": "eed513f382d5",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://www.gpone.com/themes/custom/gpone/assets/favicon/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "motoit": {
+  "sha": "e0ccbc620ad3",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFDF0C",
+  "src": "https://dm.stcrm.it/Frontend/Commons/Masters/Main/Controls/Favicons/img/apple-touch-icon.png?ver=20260903_1406",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "therace": {
+  "sha": "da8c76d44a56",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#000000",
+  "src": "https://storage.googleapis.com/the-race-com.appspot.com/1/2020/03/cropped-android-chrome-512x512-1-180x180.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "autocar": {
+  "sha": "8c4fce8a4b48",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFF713",
+  "src": "https://images.cdn.autocar.co.uk/sites/default/themes/custom/autocar/favicon.ico",
+  "orig": 228,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "electrek": {
+  "sha": "5ee5757895b2",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://electrek.co/wp-content/uploads/sites/3/2017/03/electrek.png?w=180",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "carscoops": {
+  "sha": "8e9ce27c1376",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://www.carscoops.com/wp-content/uploads/2022/12/apple-icon-152x152-1.png",
+  "orig": 152,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "bbc": {
+  "sha": "4d52e68a037e",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://static.files.bbci.co.uk/bbcdotcom/web/20260922-091849-a8520cb5b4-web-3.22.0-3/android-chrome-512x512.png",
+  "orig": 512,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "guardian": {
+  "sha": "cff0308d7717",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#052962",
+  "src": "https://assets.guim.co.uk/static/frontend/icons/homescreen/apple-touch-icon-512.png",
+  "orig": 512,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "independent": {
+  "sha": "2ff0c70c2209",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.independent.co.uk/img/shortcut-icons/icon-192x192.png",
+  "orig": 192,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "ft": {
+  "sha": "700c4c3ceaa0",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFE2C4",
+  "src": "https://www.ft.com/__assets/creatives/brand-ft/icons/v2/android-chrome-192x192.png",
+  "orig": 192,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "economist": {
+  "sha": "9876f8fe8a3f",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#E3120B",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.economist.com%2F&size=256",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "nyt": {
+  "sha": "1cc1df5be12b",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#F0F0F0",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.nytimes.com%2F&size=256",
+  "orig": 144,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "washingtonpost": {
+  "sha": "acaa1b45d147",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#111111",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.washingtonpost.com%2F&size=256",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "wsj": {
+  "sha": "513dd25a3a4a",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://www.wsj.com/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "npr": {
+  "sha": "08779c4a735d",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://media.npr.org/chrome/favicon/favicon-180x180.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "atlantic": {
+  "sha": "8a3561d53081",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.theatlantic.com%2F&size=256",
+  "orig": 152,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "politico": {
+  "sha": "245518be072d",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#D71920",
+  "src": "https://www.politico.eu/wp-content/themes/politico/assets/images/apple/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "euronews": {
+  "sha": "f6efe84b2e93",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#0172F0",
+  "src": "https://www.euronews.com/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "dw": {
+  "sha": "bbe35b863767",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#05B2FC",
+  "src": "https://www.dw.com/images/icons/favicon-180x180.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "france24": {
+  "sha": "5ef1205388a6",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#00A8E4",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.france24.com%2F&size=256",
+  "orig": 194,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "lemonde": {
+  "sha": "23aaa993aa9e",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#000000",
+  "src": "https://www.lemonde.fr/bucket/resources/front/static/img/logos/pwa-512.png",
+  "orig": 512,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "lefigaro": {
+  "sha": "85a4d8468664",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://www.lefigaro.fr/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "rfi": {
+  "sha": "1fbb97329b39",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#E30013",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.rfi.fr%2F&size=256",
+  "orig": 194,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "elpais": {
+  "sha": "24e20dfaf3ce",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#81C1DA",
+  "src": "https://elpais.com/apple-touch-icon-precomposed.png",
+  "orig": 144,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "elmundo": {
+  "sha": "a268f118800e",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.elmundo.es/apple-touch-icon-precomposed.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "spiegel": {
+  "sha": "7448306932b7",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#E64415",
+  "src": "https://www.spiegel.de/public/spon/images/icons/icon-512.png",
+  "orig": 512,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "faz": {
+  "sha": "b460f39ebe0d",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://www.faz.net/favicon.svg",
+  "orig": 192,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "zeit": {
+  "sha": "6a48de92bb2a",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://static.zeit.de/p/zeit.web/icons/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "aljazeera": {
+  "sha": "5bf3382c2fee",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FA9000",
+  "src": "https://www.aljazeera.com/apple-touch-icon.png",
+  "orig": 152,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "timesofisrael": {
+  "sha": "f0a74f050788",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#0E4E97",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.timesofisrael.com%2F&size=256",
+  "orig": 200,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "kyivindependent": {
+  "sha": "8625d783fa89",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://kyivindependent.com/assets/images/favicon.ico",
+  "orig": 49,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "scmp": {
+  "sha": "941ff6d2f6c7",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FCFDFD",
+  "src": "https://www.scmp.com/static/img/icons/scmp-icon-512x512.png",
+  "orig": 512,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "cbc": {
+  "sha": "13ab14bcadae",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#161616",
+  "src": "https://www.cbc.ca/a/apple-touch-icon.png",
+  "orig": 180,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "abcau": {
+  "sha": "582a52736f81",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://www.abc.net.au/news-assets/touchicon-abc.png",
+  "orig": 339,
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "barcheamotore": {
+  "sha": "4fc55c5b76b8",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#003E6B",
+  "src": "https://www.barcheamotore.com/wp-content/uploads/2022/04/cropped-logo-barche-a-motore-180x180.png",
+  "orig": 180,
+  "at": "2026-10-08T14:04:19Z"
+ },
+ "nautica": {
+  "sha": "ce6cf19c96ed",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://nautica.it/wp-content/uploads/2026/02/cropped-Favicon-nautica-180x180.png",
+  "orig": 180,
+  "at": "2026-10-08T14:04:19Z"
+ },
+ "barchemagazine": {
+  "sha": "f79df8c6364e",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FEFEFE",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.barchemagazine.com%2F&size=256",
+  "orig": 192,
+  "at": "2026-10-08T14:04:19Z"
+ },
+ "farevela": {
+  "sha": "3593a5353746",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fwww.farevela.net%2F&size=256",
+  "orig": 80,
+  "at": "2026-10-08T14:04:19Z"
+ },
+ "mby": {
+  "sha": "554105b37200",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/18/2019/09/cropped-YBW-wave-150px-square-180x180.png",
+  "orig": 180,
+  "at": "2026-10-08T14:04:19Z"
+ },
+ "yachtingworld": {
+  "sha": "f426d1840273",
+  "w": 192,
+  "h": 192,
+  "bleed": true,
+  "bg": "#FFFFFF",
+  "src": "https://www.yachtingworld.com/wp-content/themes/keystone-theme/assets/images/apple-touch-icon-precomposed.png",
+  "orig": 152,
+  "at": "2026-10-08T14:04:19Z"
+ },
+ "megayachtnews": {
+  "sha": "aa3153d3a092",
+  "w": 192,
+  "h": 192,
+  "bleed": false,
+  "bg": "#FFFFFF",
+  "src": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https%3A%2F%2Fmegayachtnews.com%2F&size=256",
+  "orig": 192,
+  "at": "2026-10-08T14:04:19Z"
+ }
+}
