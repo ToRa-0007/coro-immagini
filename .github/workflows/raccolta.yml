@@ -80,7 +80,7 @@ jobs:
       actions: write
       issues: write
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 45
     concurrency:
       group: coro-redazione
       cancel-in-progress: false
