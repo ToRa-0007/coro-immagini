@@ -23,17 +23,20 @@ on:
     branches: [main]
     paths: ['.github/workflows/**']
 
+# Least privilege: permissions di scrittura sono abilitate solo nei job che ne hanno bisogno.
 permissions:
-  contents: write
-  pages: write
-  id-token: write
-  actions: write
-  issues: write
+  contents: read
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   # Se un giro resta bloccato (GitHub a volte lascia un lavoro «in coda» per ore), lo annulla:
   # altrimenti tutti i giri successivi aspetterebbero dietro di lui.
   sblocca:
+    permissions:
+      actions: write
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
@@ -63,6 +66,7 @@ jobs:
   # Giro prenotato: aspetta il timer dell'ambiente «attesa» senza occupare una macchina, poi lascia partire la redazione.
   attesa:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.catena == 'si' }}
+    permissions: {}
     runs-on: ubuntu-24.04
     timeout-minutes: 2
     environment: attesa
@@ -73,8 +77,14 @@ jobs:
   coro:
     needs: [sblocca, attesa]
     if: ${{ !cancelled() }}
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+      actions: write
+      issues: write
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 60
     concurrency:
       group: coro-redazione
       cancel-in-progress: false
@@ -5107,7 +5117,7 @@ jobs:
           base64 -d coro.b64 | xz -d | tar -xf -
           rm coro.b64
           ls coro
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
           cache: pip
@@ -5138,7 +5148,7 @@ jobs:
           fi
           rm -rf state/img
       - name: Modelli di traduzione (copia salvata)
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@v6
         with:
           path: mt
           key: coro-mt-v1-${{ github.run_id }}
@@ -5158,7 +5168,7 @@ jobs:
           fi
       - name: Salva i modelli di traduzione
         if: steps.mt.outputs.changed == 'true'
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@v6
         with:
           path: mt
           key: coro-mt-v1-${{ github.run_id }}
@@ -5173,7 +5183,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python coro/pipeline/reports.py state
       - name: Chiave di firma dell'app Android
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@v6
         with:
           path: apkkey
           key: coro-apk-key-v1
@@ -5232,12 +5242,12 @@ jobs:
           echo "build=$BUILD" >> "$GITHUB_OUTPUT"
           if [ "$BUILD" = true ]; then echo "da costruire per $URL"; fi
           if [ ! -f apkkey/coro.jks ]; then echo "newkey=true" >> "$GITHUB_OUTPUT"; fi
-      - uses: actions/setup-java@v5
+      - uses: actions/setup-java@v6
         if: steps.apk.outputs.build == 'true'
         with:
           distribution: temurin
           java-version: '17'
-      - uses: gradle/actions/setup-gradle@v5
+      - uses: gradle/actions/setup-gradle@v6
         if: steps.apk.outputs.build == 'true'
         with:
           gradle-version: '8.9'
@@ -5267,9 +5277,32 @@ jobs:
         run: |
           mkdir -p state/apk
           echo "${{ steps.apk.outputs.hash }} $(date -u +%F)" > state/apk/fail.txt
+      - name: Aggiorna subito la copia cifrata della chiave
+        continue-on-error: true
+        env:
+          KEYPASS: ${{ secrets.CORO_KEY_PASS }}
+        run: |
+          # Comprende anche la prima chiave appena generata: non aspettare il giro successivo.
+          [ -n "$KEYPASS" ] || exit 0
+          [ -f apkkey/coro.jks ] || exit 0
+          mkdir -p state/apk
+          if ! keytool -list -keystore apkkey/coro.jks -storepass "$KEYPASS" -alias coro >/dev/null 2>&1; then
+            echo "::warning::chiave di firma non leggibile: copia cifrata non aggiornata"
+            exit 0
+          fi
+          FP=$(keytool -list -keystore apkkey/coro.jks -storepass "$KEYPASS" -alias coro 2>/dev/null | grep -i 'sha-\?256' | sha256sum | cut -c1-16)
+          if [ -z "$FP" ]; then
+            echo "::warning::impossibile leggere l'impronta della chiave di firma"
+            exit 0
+          fi
+          if [ ! -f state/apk/key.enc ] || [ "$(cat state/apk/key.fp 2>/dev/null)" != "$FP" ]; then
+            openssl enc -aes-256-cbc -salt -pbkdf2 -iter 300000 -in apkkey/coro.jks -out state/apk/key.enc -pass env:KEYPASS
+            echo "$FP" > state/apk/key.fp
+            echo "copia cifrata della chiave di firma aggiornata"
+          fi
       - name: Conserva la chiave di firma
         if: steps.apk.outputs.newkey == 'true' && hashFiles('apkkey/coro.jks') != ''
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@v6
         with:
           path: apkkey
           key: coro-apk-key-v1
