@@ -27,10 +27,6 @@ on:
 permissions:
   contents: read
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   # Se un giro resta bloccato (GitHub a volte lascia un lavoro «in coda» per ore), lo annulla:
   # altrimenti tutti i giri successivi aspetterebbero dietro di lui.
