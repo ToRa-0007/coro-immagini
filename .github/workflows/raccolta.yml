@@ -18,12 +18,13 @@ on:
         description: 'Giro prenotato dal giro precedente (per un avvio a mano lasciare «no»)'
         required: false
         default: 'no'
-        type: string
+        type: choice
+        options: ['no', 'si']
   push:
     branches: [main]
     paths: ['.github/workflows/**']
 
-# Least privilege: permissions di scrittura sono abilitate solo nei job che ne hanno bisogno.
+# Permessi minimi: di base solo lettura, ogni lavoro chiede quello che gli serve.
 permissions:
   contents: read
 
@@ -31,10 +32,10 @@ jobs:
   # Se un giro resta bloccato (GitHub a volte lascia un lavoro «in coda» per ore), lo annulla:
   # altrimenti tutti i giri successivi aspetterebbero dietro di lui.
   sblocca:
-    permissions:
-      actions: write
     runs-on: ubuntu-24.04
     timeout-minutes: 5
+    permissions:
+      actions: write
     steps:
       - name: Libera i giri rimasti bloccati
         continue-on-error: true
@@ -62,9 +63,9 @@ jobs:
   # Giro prenotato: aspetta il timer dell'ambiente «attesa» senza occupare una macchina, poi lascia partire la redazione.
   attesa:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.catena == 'si' }}
-    permissions: {}
     runs-on: ubuntu-24.04
     timeout-minutes: 2
+    permissions: {}
     environment: attesa
     steps:
       - name: Fine dell'attesa
@@ -73,17 +74,18 @@ jobs:
   coro:
     needs: [sblocca, attesa]
     if: ${{ !cancelled() }}
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-      actions: write
-      issues: write
     runs-on: ubuntu-24.04
     timeout-minutes: 45
+    # un giro alla volta: due giri insieme scriverebbero lo stesso ramo dati e l'ultimo cancellerebbe il lavoro dell'altro
     concurrency:
       group: coro-redazione
       cancel-in-progress: false
+    permissions:
+      contents: write   # ramo dati
+      pages: write      # pubblicazione del sito
+      id-token: write   # pubblicazione del sito
+      actions: write    # prenotazione del giro successivo, orario automatico
+      issues: write     # segnalazioni dall'app e avvisi di guasto
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -5110,8 +5112,14 @@ jobs:
           B64EOF
       - name: Estrai il codice
         run: |
-          base64 -d coro.b64 | xz -d | tar -xf -
-          rm coro.b64
+          set -o pipefail
+          base64 -d coro.b64 > coro.tar.xz
+          # impronta del codice: un file caricato a metà o modificato a mano si ferma qui con un messaggio chiaro
+          if ! echo "b15a65f00cb7d8f58ff528e9c2f26339b54dbffc40472f17413c3a80a4441e55  coro.tar.xz" | sha256sum -c --quiet; then
+            echo "::error::codice di Coro incompleto o alterato: ricarica raccolta.yml intero"; exit 1
+          fi
+          xz -d < coro.tar.xz | tar -xf -
+          rm coro.b64 coro.tar.xz
           ls coro
       - uses: actions/setup-python@v7
         with:
@@ -5168,11 +5176,15 @@ jobs:
         with:
           path: mt
           key: coro-mt-v1-${{ github.run_id }}
+      # I passi con continue-on-error lasciano proseguire il giro (meglio un'edizione con le notizie già raccolte che nessuna),
+      # ma non passano inosservati: «Esito del giro», alla fine, li elenca e rende rosso il giro.
       - name: Raccolta
+        id: raccolta
         continue-on-error: true
         timeout-minutes: 12
         run: python coro/pipeline/collect.py coro/pipeline/sources.json state
       - name: Segnalazioni dall'app
+        id: segnalazioni
         continue-on-error: true
         timeout-minutes: 3
         env:
@@ -5184,6 +5196,7 @@ jobs:
           path: apkkey
           key: coro-apk-key-v1
       - name: Chiave di firma protetta (segreto e copia cifrata)
+        id: chiave
         continue-on-error: true
         env:
           KEYPASS: ${{ secrets.CORO_KEY_PASS }}
@@ -5195,19 +5208,21 @@ jobs:
             exit 0
           fi
           mkdir -p apkkey state/apk
+          ERR=0
           if [ ! -f apkkey/coro.jks ] && [ -f state/apk/key.enc ]; then
             if openssl enc -d -aes-256-cbc -pbkdf2 -iter 300000 -in state/apk/key.enc -out apkkey/coro.jks -pass env:KEYPASS; then
               echo "chiave di firma ripristinata dalla copia cifrata"
             else
-              rm -f apkkey/coro.jks; echo "::error::copia cifrata della chiave non decifrabile: CORO_KEY_PASS non è quello usato per cifrarla"
+              rm -f apkkey/coro.jks; ERR=1
+              echo "::error::copia cifrata della chiave non decifrabile: CORO_KEY_PASS non è quello usato per cifrarla"
             fi
           fi
-          [ -f apkkey/coro.jks ] || exit 0
+          [ -f apkkey/coro.jks ] || exit $ERR
           if keytool -list -keystore apkkey/coro.jks -storepass coro-app >/dev/null 2>&1; then
             keytool -storepasswd -keystore apkkey/coro.jks -storepass coro-app -new "$KEYPASS" >/dev/null 2>&1
           fi
           if ! keytool -list -keystore apkkey/coro.jks -storepass "$KEYPASS" >/dev/null 2>&1; then
-            echo "::error::la chiave di firma non si apre né con la password predefinita né con CORO_KEY_PASS"; exit 0
+            echo "::error::la chiave di firma non si apre né con la password predefinita né con CORO_KEY_PASS"; exit 1
           fi
           FP=$(keytool -list -keystore apkkey/coro.jks -storepass "$KEYPASS" -alias coro 2>/dev/null | grep -i 'sha-\?256' | sha256sum | cut -c1-16)
           if [ ! -f state/apk/key.enc ] || [ "$(cat state/apk/key.fp 2>/dev/null)" != "$FP" ]; then
@@ -5247,6 +5262,9 @@ jobs:
         if: steps.apk.outputs.build == 'true'
         with:
           gradle-version: '8.9'
+          # dalla v6 la cache di Gradle è un componente proprietario con condizioni d'uso proprie: spenta, si usa solo
+          # l'installazione di Gradle (l'app si ricostruisce di rado, la cache farebbe risparmiare un minuto)
+          cache-disabled: true
       - name: Costruisci l'app Android
         id: build
         if: steps.apk.outputs.build == 'true'
@@ -5255,6 +5273,7 @@ jobs:
         env:
           CORO_URL: ${{ steps.apk.outputs.url }}
           CORO_KEY_PASS: ${{ secrets.CORO_KEY_PASS || 'coro-app' }}
+          HASH: ${{ steps.apk.outputs.hash }}
         run: |
           mkdir -p apkkey state/apk
           if [ ! -f apkkey/coro.jks ]; then
@@ -5265,37 +5284,30 @@ jobs:
           cd coro/android
           gradle --no-daemon --console=plain assembleRelease
           cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/state/apk/coro.apk"
-          echo "${{ steps.apk.outputs.hash }}" > "$GITHUB_WORKSPACE/state/apk/hash.txt"
+          echo "$HASH" > "$GITHUB_WORKSPACE/state/apk/hash.txt"
           rm -f "$GITHUB_WORKSPACE/state/apk/fail.txt"
           ls -la "$GITHUB_WORKSPACE/state/apk"
       - name: Annota la costruzione non riuscita
         if: steps.build.outcome == 'failure'
+        env:
+          HASH: ${{ steps.apk.outputs.hash }}
         run: |
           mkdir -p state/apk
-          echo "${{ steps.apk.outputs.hash }} $(date -u +%F)" > state/apk/fail.txt
-      - name: Aggiorna subito la copia cifrata della chiave
+          echo "$HASH $(date -u +%F)" > state/apk/fail.txt
+      - name: Copia cifrata della chiave appena creata
+        # la prima chiave nasce durante la costruzione: la copia cifrata parte con questo stesso giro, non con il successivo
+        if: steps.apk.outputs.newkey == 'true' && hashFiles('apkkey/coro.jks') != ''
+        id: chiave_nuova
         continue-on-error: true
         env:
           KEYPASS: ${{ secrets.CORO_KEY_PASS }}
         run: |
-          # Comprende anche la prima chiave appena generata: non aspettare il giro successivo.
           [ -n "$KEYPASS" ] || exit 0
-          [ -f apkkey/coro.jks ] || exit 0
           mkdir -p state/apk
-          if ! keytool -list -keystore apkkey/coro.jks -storepass "$KEYPASS" -alias coro >/dev/null 2>&1; then
-            echo "::warning::chiave di firma non leggibile: copia cifrata non aggiornata"
-            exit 0
-          fi
           FP=$(keytool -list -keystore apkkey/coro.jks -storepass "$KEYPASS" -alias coro 2>/dev/null | grep -i 'sha-\?256' | sha256sum | cut -c1-16)
-          if [ -z "$FP" ]; then
-            echo "::warning::impossibile leggere l'impronta della chiave di firma"
-            exit 0
-          fi
-          if [ ! -f state/apk/key.enc ] || [ "$(cat state/apk/key.fp 2>/dev/null)" != "$FP" ]; then
-            openssl enc -aes-256-cbc -salt -pbkdf2 -iter 300000 -in apkkey/coro.jks -out state/apk/key.enc -pass env:KEYPASS
-            echo "$FP" > state/apk/key.fp
-            echo "copia cifrata della chiave di firma aggiornata"
-          fi
+          openssl enc -aes-256-cbc -salt -pbkdf2 -iter 300000 -in apkkey/coro.jks -out state/apk/key.enc -pass env:KEYPASS
+          echo "$FP" > state/apk/key.fp
+          echo "copia cifrata della nuova chiave di firma creata"
       - name: Conserva la chiave di firma
         if: steps.apk.outputs.newkey == 'true' && hashFiles('apkkey/coro.jks') != ''
         uses: actions/cache/save@v6
@@ -5303,12 +5315,15 @@ jobs:
           path: apkkey
           key: coro-apk-key-v1
       - name: Redazione automatica
+        id: redazione
         run: |
           if [ -f state/apk/coro.apk ]; then export CORO_APK=coro.apk; fi
           mkdir -p state/ultimo
           if timeout 12m python coro/pipeline/editor.py state site mt; then
             cp site/data/feed.json site/data/archive.json state/ultimo/
+            echo "ok=true" >> "$GITHUB_OUTPUT"
           else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
             echo "::warning::redazione non riuscita: ripubblico l'ultima edizione buona"
             mkdir -p site/data && { cp state/ultimo/*.json site/data/ 2>/dev/null || echo "::warning::nessuna edizione precedente"; }
           fi
@@ -5318,7 +5333,21 @@ jobs:
           python coro/build_site.py site
           mkdir -p site/logos && cp state/logos/*.png site/logos/ 2>/dev/null || true
           if [ -f state/apk/coro.apk ]; then cp state/apk/coro.apk site/coro.apk; fi
-          if python -c "import json, sys; d = json.load(open('site/data/feed.json', encoding='utf-8')); sys.exit(0 if d.get('stories') else 1)" 2>/dev/null; then
+          # si pubblica solo un sito con tutti i file di dati leggibili e una prima pagina non vuota
+          if python - <<'PY'
+          import json, os, sys
+          try:
+              d = json.load(open('site/data/feed.json', encoding='utf-8'))
+              assert d.get('stories'), 'prima pagina vuota'
+              for f in ('site/data/archive.json', 'site/version.json', 'site/manifest.webmanifest'):
+                  if f.endswith('archive.json') and not os.path.exists(f):
+                      continue
+                  json.load(open(f, encoding='utf-8'))
+          except Exception as e:
+              print('dati del sito non validi:', e)
+              sys.exit(1)
+          PY
+          then
             echo "ok=true" >> "$GITHUB_OUTPUT"
           else
             echo "ok=false" >> "$GITHUB_OUTPUT"
@@ -5326,6 +5355,7 @@ jobs:
           fi
           du -sh site || true
       - name: Salva lo stato sul ramo dati
+        id: stato
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -5349,7 +5379,7 @@ jobs:
           sys.exit(1 if bad else 0)
           PY
           then
-            echo "::warning::stato danneggiato: non lo salvo"; exit 0
+            echo "::error::stato danneggiato: non lo salvo, il giro dopo riparte dal precedente"; exit 1
           fi
           git config user.name "coro-bot"
           git config user.email "coro-bot@users.noreply.github.com"
@@ -5362,9 +5392,11 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENTO: ${{ github.event_name }}
+          CATENA: ${{ inputs.catena }}
         run: |
           # GitHub sospende gli orari dei repository pubblici dopo 60 giorni senza attività: una volta al giorno li riconferma
-          if [ "$(date -u +%H)" = "03" ] || { [ "${{ github.event_name }}" != "schedule" ] && [ "${{ inputs.catena }}" != "si" ]; }; then
+          if [ "$(date -u +%H)" = "03" ] || { [ "$EVENTO" != "schedule" ] && [ "$CATENA" != "si" ]; }; then
             WF="${GITHUB_WORKFLOW_REF%@*}"; WF="${WF##*/}"
             gh api -X PUT "repos/$GITHUB_REPOSITORY/actions/workflows/$WF/enable" && echo "orario confermato ($WF)"
           fi
@@ -5378,10 +5410,13 @@ jobs:
         if: steps.sito.outputs.ok == 'true'
         uses: actions/deploy-pages@v5
       - name: Prenota il prossimo giro
+        id: prenota
         if: ${{ !cancelled() }}
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # senza copia del repository gh non sa a quale repository rivolgersi: va indicato
+          GH_REPO: ${{ github.repository }}
           CATENA: ${{ inputs.catena }}
         run: |
           WF="${GITHUB_WORKFLOW_REF%@*}"; WF="${WF##*/}"
@@ -5390,6 +5425,7 @@ jobs:
           # un giro prenotato che non ha aspettato vuol dire che l'ambiente «attesa» non ha il timer: la catena si ferma
           # invece di far partire un giro ogni tre minuti
           if [ "$CATENA" = "si" ] && [ "$AGE" -lt 9 ]; then
+            echo "nota=catena ferma: manca l'ambiente «attesa» con il timer di 12 minuti (Settings → Environments)" >> "$GITHUB_OUTPUT"
             echo "::warning::il giro prenotato non ha aspettato: crea l'ambiente «attesa» con un timer di 12 minuti (Settings → Environments). Restano gli orari di GitHub."
             exit 0
           fi
@@ -5403,6 +5439,72 @@ jobs:
             echo "c'è già un giro in programma ($ALTRI): non ne prenoto un altro"
             exit 0
           fi
-          gh workflow run "$WF" --ref "$GITHUB_REF_NAME" -f catena=si
+          gh workflow run "$WF" --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF_NAME" -f catena=si
           echo "prossimo giro prenotato: parte tra circa 12 minuti"
+      # Riassunto del giro: i problemi gravi rendono rosso il giro; dopo tre giri rossi di fila si apre un avviso
+      # (issue «Coro: giri non riusciti», con notifica al proprietario) che si chiude da solo al primo giro regolare.
+      - name: Esito del giro
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LAVORO: ${{ job.status }}
+          RACCOLTA: ${{ steps.raccolta.outcome }}
+          SEGNALAZIONI: ${{ steps.segnalazioni.outcome }}
+          CHIAVE: ${{ steps.chiave.outcome }} ${{ steps.chiave_nuova.outcome }}
+          APK: ${{ steps.build.outcome }}
+          REDAZIONE: ${{ steps.redazione.outputs.ok }}
+          SITO: ${{ steps.sito.outputs.ok }}
+          STATO: ${{ steps.stato.outcome }}
+          PRENOTA: ${{ steps.prenota.outcome }}
+          NOTA: ${{ steps.prenota.outputs.nota }}
+        run: |
+          G=""; L=""
+          grave() { G="$G- $1"$'\n'; echo "::error::$1"; }
+          lieve() { L="$L- $1"$'\n'; echo "::warning::$1"; }
+          if [ "$LAVORO" != "success" ]; then grave "un passo indispensabile si è fermato: il primo passo rosso del giro dice quale"; fi
+          if [ "$RACCOLTA" = "failure" ]; then grave "raccolta delle notizie non riuscita"; fi
+          if [ "$REDAZIONE" = "false" ]; then grave "redazione non riuscita: è online l'ultima edizione buona"; fi
+          if [ "$SITO" = "false" ]; then grave "nessuna edizione valida: il sito non è stato aggiornato"; fi
+          if [ "$STATO" = "failure" ]; then grave "stato non salvato sul ramo dati"; fi
+          if [ "$PRENOTA" = "failure" ]; then grave "prossimo giro non prenotato: fino al prossimo orario di GitHub l'app non si aggiorna"; fi
+          if [ "$SEGNALAZIONI" = "failure" ]; then lieve "segnalazioni dall'app non lette"; fi
+          if [[ "$CHIAVE" == *failure* ]]; then lieve "protezione della chiave di firma non riuscita"; fi
+          if [ "$APK" = "failure" ]; then lieve "app Android non ricostruita: nuovo tentativo domani"; fi
+          if [ -n "$NOTA" ]; then lieve "$NOTA"; fi
+          {
+            echo "### Esito del giro"
+            if [ -z "$G$L" ]; then echo "Tutto regolare."; fi
+            if [ -n "$G" ]; then printf 'Problemi gravi:\n\n%s\n' "$G"; fi
+            if [ -n "$L" ]; then printf 'Da sapere:\n\n%s\n' "$L"; fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          WF="${GITHUB_WORKFLOW_REF%@*}"; WF="${WF##*/}"
+          TITOLO="Coro: giri non riusciti"
+          APERTA=$(gh api "repos/$GITHUB_REPOSITORY/issues?state=open&per_page=100" \
+            --jq "[.[] | select(.title == \"$TITOLO\" and .user.login == \"github-actions[bot]\") | .number][0] // empty" 2>/dev/null || true)
+          if [ -n "$G" ]; then
+            PRIMA=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/$WF/runs?status=completed&per_page=20" \
+              --jq "[.workflow_runs[] | select(.id != $GITHUB_RUN_ID) | select(.conclusion == \"success\" or .conclusion == \"failure\") | .conclusion][:2] | join(\" \")" 2>/dev/null || true)
+            if [ "$PRIMA" = "failure failure" ] && [ -z "$APERTA" ]; then
+              CORPO="Gli ultimi tre giri di Coro non sono riusciti: l'app non si aggiorna.
+
+          Ultimo giro: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+
+          Problemi:
+
+          $G
+          L'avviso si chiude da solo al primo giro regolare.
+
+          @$GITHUB_REPOSITORY_OWNER"
+              if gh api -X POST "repos/$GITHUB_REPOSITORY/issues" -f title="$TITOLO" -f body="$CORPO" >/dev/null; then
+                echo "avviso aperto"
+              else
+                echo "::warning::avviso non aperto (issue disattivate o permessi)"
+              fi
+            fi
+            exit 1
+          fi
+          if [ -n "$APERTA" ]; then
+            gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$APERTA/comments" -f body="Giro di nuovo regolare: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >/dev/null || true
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/$APERTA" -f state=closed -f state_reason=completed >/dev/null && echo "avviso chiuso" || true
+          fi
 
