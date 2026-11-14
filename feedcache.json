@@ -1,0 +1,102 @@
+{
+ "agi": {
+  "u": "https://www.agi.it/rss.xml",
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "ilpost": {
+  "u": "https://www.ilpost.it/feed",
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "quotidianosanita": {
+  "u": "https://www.quotidianosanita.it/feed/",
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "alvolante": {
+  "u": "https://www.alvolante.it/rss.xml",
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "motorbox": {
+  "u": "https://www.motorbox.com/rss.xml",
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "gpone": {
+  "u": "https://www.gpone.com/it/rss.xml",
+  "at": "2026-09-28T17:43:27Z"
+ },
+ "nasa": {
+  "u": "https://www.nasa.gov/feed/",
+  "at": "2026-11-05T10:47:25Z"
+ },
+ "adnkronos": {
+  "u": "https://www.adnkronos.com/rss.xml",
+  "at": "2026-10-05T11:17:31Z"
+ },
+ "france24": {
+  "u": "https://www.france24.com/rss/",
+  "at": "2026-11-11T12:15:30Z"
+ },
+ "spiegel": {
+  "u": "https://www.spiegel.de/index.rss",
+  "at": "2026-10-07T16:49:24Z"
+ },
+ "nautica": {
+  "u": "https://www.nautica.it/rss/",
+  "at": "2026-11-12T23:18:39Z"
+ },
+ "valigiablu": {
+  "u": "https://www.valigiablu.it/rss/",
+  "at": "2026-10-13T06:59:45Z"
+ },
+ "lastampa": {
+  "u": "https://www.lastampa.it/rss/",
+  "at": "2026-10-18T11:22:38Z"
+ },
+ "ilmamilio": {
+  "u": "https://www.ilmamilio.it/wp/feed/",
+  "at": "2026-10-18T11:36:40Z"
+ },
+ "boatingindustry": {
+  "u": "https://boatingindustry.com/feed/",
+  "at": "2026-10-20T16:10:11Z"
+ },
+ "diarioromano": {
+  "u": "https://www.diarioromano.it/rss/",
+  "at": "2026-10-21T06:34:47Z"
+ },
+ "metamagazine": {
+  "u": "https://www.metamagazine.it/rss/",
+  "at": "2026-10-27T07:40:34Z"
+ },
+ "barcheamotore": {
+  "u": "https://www.barcheamotore.com/rss/",
+  "at": "2026-11-04T09:05:54Z"
+ },
+ "carbonbrief": {
+  "u": "https://www.carbonbrief.org/rss/",
+  "at": "2026-11-04T15:36:24Z"
+ },
+ "puntoinformatico": {
+  "u": "https://www.punto-informatico.it/rss/",
+  "at": "2026-11-11T14:35:34Z"
+ },
+ "lavoce": {
+  "u": "https://lavoce.info/rss/",
+  "at": "2026-11-07T14:35:22Z"
+ },
+ "tiburno": {
+  "u": "https://www.tiburno.tv/rss/",
+  "at": "2026-11-07T23:06:06Z"
+ },
+ "baraondanews": {
+  "u": "https://baraondanews.it/feed/",
+  "at": "2026-11-13T06:22:03Z"
+ },
+ "japantimes": {
+  "u": "https://www.japantimes.co.jp/feed",
+  "at": "2026-11-12T14:53:05Z"
+ },
+ "abitarearoma": {
+  "u": "https://abitarearoma.it/feed/podcast",
+  "at": "2026-11-13T07:46:11Z"
+ }
+}
